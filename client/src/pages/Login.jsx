@@ -1,0 +1,100 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import API from "../services/api";
+
+function Login() {
+
+    const navigate = useNavigate();
+
+    
+    const [formData, setFormData] = useState({
+
+        email: "",
+        password: "",
+
+    });
+
+    const handleChange = (e) => {
+
+        setFormData({
+
+            ...formData,
+            [e.target.name]: e.target.value,
+
+        });
+
+    };
+
+    const handleSubmit = async (e) => {
+
+        e.preventDefault();
+
+        try {
+
+            const res = await API.post("/auth/login", formData);
+
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+
+            toast.success("Login Successful!");
+
+            navigate("/dashboard");
+
+        }
+
+        catch (err) {
+
+            toast.error(
+                err.response?.data?.message || "Login Failed"
+            );
+
+        }
+
+    };
+
+    return (
+
+        <div className="container mt-5" style={{ maxWidth: "500px" }}>
+
+            <div className="card shadow p-4">
+
+                <h2 className="text-center text-danger mb-4">
+                    Login
+                </h2>
+
+                <form onSubmit={handleSubmit}>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        className="form-control mb-3"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        className="form-control mb-3"
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+
+                    <button className="btn btn-danger w-100">
+                        Login
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    );
+
+}
+
+export default Login;
