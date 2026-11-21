@@ -1,69 +1,91 @@
 # 🩸 BloodLink
 
-BloodLink is a full-stack MERN web application that connects blood donors with hospitals and patients in need. It provides secure authentication, donor management, and blood request features to make finding blood donors faster and easier.
+### Connecting blood donors, patients, and hospitals through technology.
+
+BloodLink is a full-stack MERN web application that simplifies blood donation coordination by connecting blood donors with individuals and hospitals in need of blood. The platform provides donor discovery, secure authentication, profile management, and blood request tracking through a centralized interface.
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
-### Authentication
-- User Registration
-- User Login
-- JWT Authentication
-- Password Hashing with bcrypt
-
-### Donor Management (In Progress)
-- Create Donor Profile
-- Update Profile
-- Search Donors by Blood Group
-- Search Donors by City
-- Availability Status
-
-### Blood Requests (Upcoming)
-- Create Blood Request
-- View Active Requests
-- Accept Requests
-- Request Status Tracking
+- **User Authentication** — Secure registration and login using JWT authentication and password hashing.
+- **Role-Based Access** — Separate account types for blood donors, individual patients, and hospitals.
+- **Donor Discovery** — Find donors using blood group and city filters.
+- **Donor Profiles** — Manage personal information, blood group, location, and availability.
+- **Blood Requests** — Create and manage requests with required blood group, units, patient details, and contact information.
+- **Request Management** — View personal requests and manage request statuses.
+- **Dashboard** — Access an overview of donor and blood request statistics.
+- **Protected Routes** — Restrict access to authenticated users and authorized roles.
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- React
-- React Router
-- Axios
-- CSS
-
-### Backend
-- Node.js
-- Express.js
-- MongoDB Atlas
-- Mongoose
-
-### Authentication
-- JWT (JSON Web Token)
-- bcryptjs
+| Category | Technologies |
+|---|---|
+| Frontend | React.js, Vite, React Router |
+| Styling | CSS, Bootstrap |
+| API Communication | Axios |
+| Backend | Node.js, Express.js |
+| Database | MongoDB Atlas, Mongoose |
+| Authentication | JWT, bcryptjs |
+| Notifications | React Toastify |
 
 ---
 
-## 📂 Project Structure
+## 🏗️ Architecture
 
+```text
+                 ┌─────────────────────┐
+                 │    React Frontend   │
+                 │                     │
+                 │  Pages & Components│
+                 └──────────┬──────────┘
+                            │
+                       Axios API
+                            │
+                 ┌──────────▼──────────┐
+                 │   Express Server    │
+                 │                     │
+                 │ Routes & Middleware │
+                 │     Controllers     │
+                 └──────────┬──────────┘
+                            │
+                       Mongoose
+                            │
+                 ┌──────────▼──────────┐
+                 │    MongoDB Atlas    │
+                 │                     │
+                 │    Application     │
+                 │       Data          │
+                 └─────────────────────┘
 ```
-BloodLink
+
+---
+
+## 📁 Project Structure
+
+```text
+BloodLink/
 │
-├── client
-│   ├── src
-│   └── public
+├── client/
+│   ├── public/
+│   └── src/
+│       ├── assets/
+│       ├── components/
+│       ├── pages/
+│       ├── services/
+│       ├── App.jsx
+│       └── main.jsx
 │
-├── server
-│   ├── config
-│   ├── controllers
-│   ├── middleware
-│   ├── models
-│   ├── routes
-│   ├── utils
-│   ├── .env
+├── server/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── seed/
+│   ├── utils/
 │   └── server.js
 │
 └── README.md
@@ -71,76 +93,87 @@ BloodLink
 
 ---
 
-## ⚙️ Installation
+## ⚙️ Getting Started
 
-### Clone Repository
+### Prerequisites
+
+- Node.js and npm
+- MongoDB Atlas account
+- Git
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/BloodLink.git
+git clone https://github.com/Padmaja-Dhulipudi/Bloodlink.git
+cd Bloodlink
 ```
 
-### Backend
+### 2. Configure the backend
 
 ```bash
 cd server
 npm install
+```
+
+Create a `.env` file inside the `server` directory:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
+
+Start the backend:
+
+```bash
 npm run dev
 ```
 
-### Frontend
+### 3. Configure the frontend
+
+Open another terminal:
 
 ```bash
 cd client
 npm install
-npm start
+npm run dev
 ```
 
----
+Open the local URL provided by Vite, usually:
 
-## 🌐 Environment Variables
-
-Create a `.env` file inside the `server` folder.
-
-```env
-PORT=5000
-
-MONGO_URI=YOUR_MONGODB_URI
-
-JWT_SECRET=YOUR_SECRET_KEY
-```
+`http://localhost:5173`
 
 ---
 
-## 📌 Current Progress
+## 🔐 Security
 
-- [x] Project Setup
-- [x] MongoDB Atlas Connection
-- [x] User Schema
-- [x] Register API
-- [x] Login API
-- [x] JWT Authentication
-- [x] Authentication Middleware
-- [ ] Donor CRUD
-- [ ] Blood Request API
-- [ ] Search & Filters
-- [ ] React Frontend
-- [ ] Deployment
+- Passwords are hashed before storage.
+- JWT tokens are used for authentication.
+- Protected API routes require valid authentication.
+- Role-based middleware controls access to restricted operations.
+- Environment variables are used for sensitive configuration.
 
 ---
 
-## 🎯 Future Improvements
+## 🚀 Future Enhancements
 
-- Role-Based Access Control
-- Nearby Donor Search
-- Email Notifications
-- Emergency Request Alerts
-- Admin Dashboard
-- Responsive UI
+- Location-based donor discovery
+- Emergency blood request notifications
+- Email and SMS alerts
+- Hospital verification
+- Administrative dashboard
+- Cloud deployment
 
 ---
 
-## 👨‍💻 Author
+## 👩‍💻 Author
 
 **Padmaja Dhulipudi**
 
 Computer Science Undergraduate | MERN Stack Developer
+
+---
+
+<p align="center">
+  Made with ❤️ to make blood donation coordination easier.
+</p>
