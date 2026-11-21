@@ -26,7 +26,9 @@ const userSchema = new mongoose.Schema(
 
     bloodGroup:{
         type:String,
-        required:true,
+        required: function(){
+            return this.role === "donor";
+        },
         enum:[
             "A+","A-",
             "B+","B-",
@@ -42,7 +44,7 @@ const userSchema = new mongoose.Schema(
 
     role:{
         type:String,
-        enum:["donor","hospital","admin"],
+        enum:["donor","requester","hospital","admin"],
         default:"donor",
     },
 

@@ -10,8 +10,6 @@ import dashboardRoutes from "./routes/dashboardRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 dotenv.config();
 
-connectDB();
-
 const app = express();
 
 app.use(cors());
@@ -41,6 +39,18 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+
+    } catch (error) {
+        console.error("Failed to start server:", error.message);
+        process.exit(1);
+    }
+};
+
+startServer();

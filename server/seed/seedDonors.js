@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 import User from "../models/User.js";
 
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 await mongoose.connect(process.env.MONGO_URI);
 

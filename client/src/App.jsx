@@ -10,29 +10,67 @@ import Dashboard from "./pages/Dashboard";
 import FindDonors from "./pages/FindDonors";
 import RequestBlood from "./pages/RequestBlood";
 import Profile from "./pages/Profile";
+import MyRequests from "./pages/MyRequests";
+
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Navbar />
+    return (
+        <BrowserRouter>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/find-donors" element={<FindDonors />} />
-        <Route path="/request-blood" element={<RequestBlood />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
+            <Navbar />
 
-      <Footer />
-      <ToastContainer position="top-right" autoClose={3000} />
-    </BrowserRouter>
-  );
+            <Routes>
+
+                <Route path="/" element={<Home />} />
+
+                <Route path="/login" element={<Login />} />
+
+                <Route path="/register" element={<Register />} />
+
+                <Route path="/dashboard" element={<Dashboard />} />
+
+                <Route
+                    path="/find-donors"
+                    element={<FindDonors />}
+                />
+
+                <Route
+                    path="/request-blood"
+                    element={
+                        <ProtectedRoute>
+                            <RequestBlood />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/my-requests"
+                    element={
+                        <ProtectedRoute>
+                            <MyRequests />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/profile"
+                    element={<Profile />}
+                />
+
+            </Routes>
+
+            <Footer />
+
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+            />
+
+        </BrowserRouter>
+    );
 }
 
 export default App;

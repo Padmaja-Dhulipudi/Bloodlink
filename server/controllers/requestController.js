@@ -60,6 +60,29 @@ export const getAllRequests = async (req, res) => {
 
 };
 
+export const getMyRequests = async (req, res) => {
+    try {
+
+        const requests = await BloodRequest.find({
+            requester: req.user.id
+        }).sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            count: requests.length,
+            requests
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+};
+
 export const acceptRequest = async (req, res) => {
 
     try {

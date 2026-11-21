@@ -11,7 +11,8 @@ export const registerUser = async (req, res) => {
             password,
             phone,
             bloodGroup,
-            city
+            city,
+            role
         } = req.body;
 
         // Check existing user
@@ -19,6 +20,7 @@ export const registerUser = async (req, res) => {
 
         if (existingUser) {
             return res.status(400).json({
+                success: false,
                 message: "User already exists"
             });
         }
@@ -33,17 +35,23 @@ export const registerUser = async (req, res) => {
             password: hashedPassword,
             phone,
             bloodGroup,
-            city
+            city,
+            role: role || "donor"
         });
 
-        // Generate JWT
+        // Generate JWT with role
         const token = jwt.sign(
-            { id: user._id },
+            {
+                id: user._id,
+                role: user.role
+            },
             process.env.JWT_SECRET,
-            { expiresIn: "7d" }
+            {
+                expiresIn: "7d"
+            }
         );
 
-
+        // Remove password from response
         const userResponse = user.toObject();
         delete userResponse.password;
 
@@ -63,6 +71,7 @@ export const registerUser = async (req, res) => {
     }
 };
 
+
 export const loginUser = async (req, res) => {
     try {
 
@@ -78,8 +87,11 @@ export const loginUser = async (req, res) => {
             });
         }
 
-        // Compare Password
-        const isMatch = await bcrypt.compare(password, user.password);
+        // Compare password
+        const isMatch = await bcrypt.compare(
+            password,
+            user.password
+        );
 
         if (!isMatch) {
             return res.status(400).json({
@@ -88,14 +100,19 @@ export const loginUser = async (req, res) => {
             });
         }
 
-        // Generate JWT
+        // Generate JWT with role
         const token = jwt.sign(
-            { id: user._id },
+            {
+                id: user._id,
+                role: user.role
+            },
             process.env.JWT_SECRET,
-            { expiresIn: "7d" }
+            {
+                expiresIn: "7d"
+            }
         );
 
-        // Remove Password
+        // Remove password from response
         const userResponse = user.toObject();
         delete userResponse.password;
 
